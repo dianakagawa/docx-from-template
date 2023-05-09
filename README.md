@@ -12,4 +12,8 @@ For this project's purpose, I used two templates: one in case the .json file has
 
 ```bash
 pip install docxtpl
+# check the spanish locale you have installed
+locale -a
+# or generate a spanish locale
+sudo locale-gen es_ES.UTF-8
 ```

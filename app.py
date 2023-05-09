@@ -1,24 +1,34 @@
-from docxtpl import DocxTemplate
 import json
+import locale
+from datetime import datetime
+
+from docxtpl import DocxTemplate
+
+# Set locale to Spanish
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 with open('data.json', 'r') as f:
   data = json.load(f)
 
+items_false = data['domicilio_real'] == False or data['ley_infringida'] == False or data['articulo_infringido'] == False or data['fundamentacion'] == False or data['justificacion'] == False
+
+# Get today's date in Spanish
+date_str = datetime.today().strftime('%d de %B de %Y')
+
 # Function for the accepted Auto Interlocutorio
 def accepted_ai():
-  context = {'demandante_name' : data['demandante_name'], 'ley_infringida' : data['ley_infringida']}
+  context = {'today': date_str, 'demandante_name' : data['demandante_name'], 'ley_infringida' : data['ley_infringida'], 'articulo_infringido': data['articulo_infringido']}
   doc = DocxTemplate("ai_template.docx")
   doc.render(context)
   doc.save(f"ACCEPTED_{context['demandante_name']}_generated_ai.docx")
 
 # Function for the rejected Auto Interlocutorio
 def rejected_ai():
-  context = {'demandante_name' : data['demandante_name'], 'ley_infringida' : data['ley_infringida']}
+  context = {'today': date_str, 'demandante_name' : data['demandante_name'], 'ley_infringida' : data['ley_infringida'], 'articulo_infringido': data['articulo_infringido']}
   doc = DocxTemplate("ai_rejected_template.docx")
   doc.render(context)
   doc.save(f"REJECTED_{context['demandante_name']}_generated_ai.docx")
 
-items_false = data['domicilio_real'] == False or data['ley_infringida'] == False or data['articulo_infringido'] == False or data['fundamentacion'] == False or data['justificacion'] == False
 def items_not_present():
   if items_false:
     rejected_ai()
@@ -36,3 +46,4 @@ else:
     print('Error: patrocinio is false but abogado_name or abogado_matricula is missing.')
   else:
     items_not_present()
+

@@ -5,10 +5,9 @@
   "patrocinio": true,
   "abogado_name": "Dr. AVERAGE JOE",
   "abogado_matricula": "1.234",
-  "domicilio_real": false,
+  "domicilio_real": true,
   "ley_infringida": "ART. 01 DE LA LEY N\u00b0 1234/1002 'QUE SUSTITUYE LAS LEYES 01/01 Y 1002/01'",
-  "articulo_infringido": "QUE SUSTITUYE LAS LEYES 01/01 Y 1002/01",
+  "articulo_infringido": "los artículos 46, 47 y 109 de la Constitución Nacional",
   "fundamentacion": true,
-  "justificacion": true,
-  "today_date": "09-05-2023"
+  "justificacion": true
 }
